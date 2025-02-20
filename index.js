@@ -1,14 +1,14 @@
-const fs = require('fs');
-const path = require('path');
-const { PDFDocument, rgb } = require('pdf-lib');
-const sharp = require('sharp');
+const fs = require('fs');                           // Biblioteca para manipular arquivos
+const path = require('path');                       // Manipular caminho de arquivos
+const { PDFDocument, rgb } = require('pdf-lib');    // Criação e manipulação de PDFs
+const sharp = require('sharp');                     // Processamento de imagens
 
 async function imageToPDF(imagePath, outputPath) {
-  const pdfDoc = await PDFDocument.create();
-  const imageBuffer = await sharp(imagePath).png().toBuffer();
-  const image = await pdfDoc.embedPng(imageBuffer);
-  const page = pdfDoc.addPage([image.width, image.height + 30]);
-  page.drawImage(image, {
+  const pdfDoc = await PDFDocument.create();                        // Cria um novo documento PDF
+  const imageBuffer = await sharp(imagePath).png().toBuffer();      // Lê a imagem e converte para PNG
+  const image = await pdfDoc.embedPng(imageBuffer);                 // Adiciona a imagem ao PDF
+  const page = pdfDoc.addPage([image.width, image.height + 30]);    // Adiciona uma página ao PDF
+  page.drawImage(image, {                                           
     x: 0,
     y: 30,
     width: image.width,
